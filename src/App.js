@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
-import Chat from './components/Chat'
 
 class App extends Component {
+  getData = () => {
+   
+  }
+
+  postData = () => {
+   
+  }
+
   render() {
     return (
-        <Chat />
+      <div className='container'>
+        <button onClick={this.getData}>
+          Get
+        </button>
+        <button onClick={this.postData}>
+          Post
+        </button>
+      </div>
     );
   }
 }

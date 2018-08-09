@@ -1,15 +1,7 @@
-require('dotenv').config();
+const   express = require('express')
+        , bodyParser = require('body-parser')
 
-const express = require('express'),
-  bodyParser = require('body-parser'),
-  massive = require('massive'),
-  faker = require('faker'),
-  session = require('express-session'),
-  socketIo = require('socket.io');
-
-let messages = [];
-
-const { CONNECTION_STRING, PORT, SESSION_SECRET } = process.env;
+const PORT = 3010;
 
 const app = express();
 
@@ -17,51 +9,15 @@ app.use(express.static(__dirname + '/../build'))
 
 app.use(bodyParser.json());
 
-// Wrap socket in the app.listen
-const io = socketIo(
-  app.listen(PORT || 3010, () => console.log(`Hard to port ${PORT || 3010}`))
-);
+app.get('/api/endpoint', (req, res) => {
+    return res.status(200).send('KaBOOOOOOM!!!')
+})
 
-var users = [];
+const collector = [];
 
-io.on('connection', socket => {
-  console.log('client: ' + socket.id)
-
-  socket.emit('id', socket.id)
-
-  users.push({
-    id: socket.id,
-  })
-
-  // Emit to all connected sockets.
-  io.emit('users', users)
-
-  socket.on('username', (username) => {
-    let newUsers = users.map( user => {
-      if(user.id === socket.id){
-        user.name = username
-      }
-      return user
-    })
-    io.emit('users', newUsers);
-  })
-
-  socket.on('message', ({body, from}) => {
-    socket.broadcast.emit('message', {
-      body,
-      from
-    })
-  })
-
-  socket.on('disconnect', () => {
-    console.log('disconnected: ' + socket.id)
-    users = users.filter( user => {
-      return socket.id !== user.id
-    })
-    socket.broadcast.emit('users', users)
-  })
-});
-
-
+app.post('/api/endpoint', (req, res) => {
+    collector.push(req.body)
+    return res.status(200).send(collector)
+})
 
 
