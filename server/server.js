@@ -5,8 +5,6 @@ const PORT = 3010;
 
 const app = express();
 
-app.use(express.static(__dirname + '/../build'))
-
 app.use(bodyParser.json());
 
 app.get('/api/endpoint', (req, res) => {
@@ -20,4 +18,4 @@ app.post('/api/endpoint', (req, res) => {
     return res.status(200).send(collector)
 })
 
-
+app.listen(PORT, () => console.log(`Hard to port ${PORT}`))
