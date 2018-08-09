@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
-import routes from './routes'
 
 class App extends Component {
+  getData = () => {
+   
+  }
+
+  postData = () => {
+   
+  }
+
   render() {
     return (
-      <div>
-        { routes }
+      <div className='container'>
+        <button onClick={this.getData}>
+          Get
+        </button>
+        <button onClick={this.postData}>
+          Post
+        </button>
       </div>
     );
   }
