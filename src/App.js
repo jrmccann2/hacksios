@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
+import hacksios from './hacksios';
 
 class App extends Component {
-  getData = () => {};
+  getData = () => {
+    console.log('thingy');
+    hacksios
+      .get('/api/endpoint')
+      .then(response => console.log(response))
+      .catch(console.log);
+  };
 
-  postData = () => {};
+  postData = () => {
+    hacksios
+      .post('/api/endpoint', {
+        name: 'Jon Snow',
+        position: 'Lord Commander of the Night\'s watch',
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => console.error(error));
+  };
 
   render() {
     return (
